@@ -16,7 +16,7 @@ const Home = () => {
     </Head>
     <div className="bg-gray-200 p-2 min-h-screen">
       <SearchBar placeholder="Pesquisar por escola" value={search} onChange={onSearch} />
-      <CallToAction href="#" className="mt-4">
+      <CallToAction href="#" className="mt-2">
         <span>Responda as perguntas e descubra a escola mais indicada</span>
       </CallToAction>
     </div>
