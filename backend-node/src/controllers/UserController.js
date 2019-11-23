@@ -15,6 +15,7 @@ module.exports = {
         }
 
         user = await User.create({name,phone})
+        
         return res.json(user);
     }
 }
