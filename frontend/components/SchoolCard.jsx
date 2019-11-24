@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import classNames from 'classnames'
-
+import classNames from 'classnames';
+import { DescriptionRow } from '../components/DescriptionRow';
+import Pin from '../icons/pin.svg';
+import Phone from '../icons/phone.svg';
+import Thumbsup from '../icons/thumbsup.svg';
 
 export const SchoolCard = ({ className, children, school, ...linkProps }) => {
 
@@ -15,16 +18,39 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
 
         </img>
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{school.name}</div>
-          <p className="text-gray-700 text-base">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
-                    </p>
+          <div className="font-bold text-xl mb-2 text-brand-600">{school.name}</div>
+          
+          <DescriptionRow hasBorder={false} 
+            icon={<Pin />} 
+            label={
+              <label className="flex-1" htmlFor="location">
+                {school.district}, {school.city}, {school.state}
+              </label>
+            }
+          >
+          </DescriptionRow>            
+          <DescriptionRow
+            icon={<Phone />} 
+            label={
+              <label className="flex-1" htmlFor="phone">
+                {school.telefone ? school.telefone : 'não informado'}
+              </label>
+            }    
+          >
+          </DescriptionRow>
+          
+          <DescriptionRow hasBorder={false}
+            icon={<Thumbsup />} 
+            label={
+              <label className="flex-1" htmlFor="recomendações">
+                {school.likes.lenght ? school.likes : '0'} Recomendações
+              </label>
+            }    
+          >
+          </DescriptionRow>
+
         </div>
-        <div className="px-6 py-4">
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#photography</span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#travel</span>
-          <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#winter</span>
-        </div>
+            
       </div>
       {children}
     </a>
