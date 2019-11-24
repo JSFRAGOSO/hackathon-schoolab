@@ -5,12 +5,12 @@ import Search from "../icons/search.svg";
 export const SearchBar = ({ className, ...props }) => (
   <div
     className={classNames(
-      "flex rounded-xl text-sm placeholder-brand-600 bg-white items-center",
+      "flex rounded-xl text-sm bg-white items-center",
       className
     )}
   >
     <input
-      className="focus:shadow-outline rounded-l-xl flex-1 min-w-0 px-4 py-3"
+      className="focus:shadow-outline rounded-l-xl flex-1 min-w-0 px-4 py-3 placeholder-brand-600"
       type="search"
       {...props}
     />

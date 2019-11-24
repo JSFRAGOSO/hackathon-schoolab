@@ -13,7 +13,6 @@ import Tag from "../icons/tag.svg";
 import Explore from "../icons/explore.svg";
 import Food from "../icons/food.svg";
 import api from "../services/api";
-import { Select } from "../components/Select";
 
 const Home = ({ schools = [] }) => {
   const [search, setSearch] = useState();
