@@ -36,7 +36,10 @@ module.exports = {
             atividade_complementar,
             educacao_indigena,
             final_semana,
-            telefone
+            telefone,
+            cep,
+            latitude,
+            longitude
         } = req.body;
 
         var school = await School.findOne({name});
@@ -73,7 +76,10 @@ module.exports = {
             atividade_complementar,
             educacao_indigena,
             final_semana,
-            telefone
+            telefone,
+            cep,
+            latitude,
+            longitude
         })
         
         return res.json(school);
