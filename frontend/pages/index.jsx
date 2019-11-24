@@ -5,6 +5,7 @@ import { CallToAction } from "../components/CallToAction";
 import { SchoolCard } from "../components/SchoolCard";
 import { Collapsible } from "../components/Collapsible";
 import { LabelRow } from "../components/LabelRow";
+import  Layout  from "../components/MyLayout";
 
 import ThumbsUp from "../icons/thumbsup.svg";
 import Tag from "../icons/tag.svg";
