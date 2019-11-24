@@ -4,6 +4,8 @@ const QuestionController = require('./controllers/QuestionController');
 const UserController = require('./controllers/UserController');
 const SchoolController = require('./controllers/SchoolController');
 const LikeController = require('./controllers/LikeController');
+const AdditionalInfoController = require('./controllers/AdditionalInfoController');
+
 
 routes.post('/question',  QuestionController.store);
 routes.get('/questions',  QuestionController.index);
@@ -12,5 +14,7 @@ routes.get('/users',  UserController.index);
 routes.get('/schools', SchoolController.index);
 routes.post('/school', SchoolController.store);
 routes.post('/schools/:school_id/like', LikeController.store);
+routes.get('/schools/:school_id/additionalInfo', AdditionalInfoController.show);
+routes.post('/schools/:school_id/additionalInfo', AdditionalInfoController.store);
 
 module.exports = routes;
