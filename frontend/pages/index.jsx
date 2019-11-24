@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Head from "next/head";
 import { SearchBar } from "../components/SearchBar";
 import { CallToAction } from "../components/CallToAction";
@@ -10,18 +10,31 @@ import ThumbsUp from "../icons/thumbsup.svg";
 import Tag from "../icons/tag.svg";
 import Explore from "../icons/explore.svg";
 import Food from "../icons/food.svg";
+import api from "../services/api";
 
 const Home = () => {
   const [search, setSearch] = useState();
-  const onSearch = e => {
+  const onSearch = useCallback(e => {
     setSearch(e.target.value);
-  };
+  });
 
+  const [schools, setSchool] = useState([]);
+
+  useEffect(() => {
+    async function getSchools() {
+      const response = await api.get("/schools", {});
+      setSchool(response.data);
+    }
+    getSchools();
+
+    console.log("RESPONSE >>>>", setSchool);
+  }, []);
   return (
-    <div>
+    <>
       <Head>
         <title>Home</title>
         <link rel="icon" href="/favicon.ico" />
+        <link href="/styles.css" rel="stylesheet" />
       </Head>
       <main className="bg-gray-200 p-2 min-h-screen">
         <section>
@@ -45,9 +58,12 @@ const Home = () => {
             ></LabelRow>
             <LabelRow icon={<Food />} label={<label>Merenda</label>}></LabelRow>
           </Collapsible>
+          {schools.map(school => (
+            <SchoolCard school={school} />
+          ))}
         </section>
       </main>
-    </div>
+    </>
   );
 };
 export default Home;
