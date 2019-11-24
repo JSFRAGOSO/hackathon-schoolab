@@ -5,6 +5,7 @@ import { CallToAction } from "../components/CallToAction";
 import { SchoolCard } from "../components/SchoolCard";
 import { Collapsible } from "../components/Collapsible";
 import { DescriptionRow } from "../components/DescriptionRow";
+import Layout from "../components/MyLayout";
 
 import Pin from "../icons/pin.svg";
 import ThumbsUp from "../icons/thumbsup.svg";
@@ -33,6 +34,24 @@ const Home = () => {
   }, []);
   return (
     <>
+      <Layout>
+        <div>
+          <h1>FlaminGO!</h1>
+          <style jsx>{`
+            h1,
+            a {
+              font-family: "Times New Roman";
+              color: white;
+              font-size: 30px;
+              text-align: center;
+              font-weight: semibold;
+              background-color: pink;
+              rounded-lg: ;
+            }
+          `}</style>
+        </div>
+      </Layout>
+
       <Head>
         <title>Home</title>
         <link rel="icon" href="/favicon.ico" />
