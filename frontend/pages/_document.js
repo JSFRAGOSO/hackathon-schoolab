@@ -23,16 +23,18 @@ class AppDocument extends Document {
         <body className="font-body text-brand-black">
           <Main />
           <NextScript />
-          <div vw="true" className="enabled">
+          <div vw="true" class="enabled">
             <div vw-access-button="true" class="active"></div>
             <div vw-plugin-wrapper="true">
-              <div className="vw-plugin-top-wrapper"></div>
+              <div class="vw-plugin-top-wrapper"></div>
             </div>
           </div>
           <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-          <script>
-            new window.VLibras.Widget('https://vlibras.gov.br/app');
-          </script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `new window.VLibras.Widget('https://vlibras.gov.br/app');`
+            }}
+          />
         </body>
       </Html>
     );
