@@ -10,35 +10,35 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
   return (
     <a
       href={`/escolas/${school._id}`}
-      className={classNames("rounded-lg mt-4 bg-white block")}
+      className={classNames("rounded-xl mt-4 bg-white block p-2 shadow-lg")}
       {...linkProps}
     >
-      <div className="rounded overflow-hidden shadow-lg">
+      <article className="rounded overflow-hidden">
         <img
-          className="img-card p-2"
+          className="img-card rounded-xl"
           src="/img/school.jpg"
           alt="Sunset in the mountains"
         ></img>
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2 text-brand-600">
+        <div className="mt-4">
+          <h1 className="font-bold text-xl mx-2 text-brand-600">
             {school.name}
-          </div>
+          </h1>
 
           <DescriptionRow
             hasBorder={false}
             icon={<Pin />}
             label={
-              <label className="flex-1" htmlFor="location">
+              <span className="font-normal">
                 {school.district}, {school.city}, {school.state}
-              </label>
+              </span>
             }
           ></DescriptionRow>
           <DescriptionRow
             icon={<Phone />}
             label={
-              <label className="flex-1" htmlFor="phone">
+              <span className="font-normal">
                 {school.telefone ? school.telefone : "não informado"}
-              </label>
+              </span>
             }
           ></DescriptionRow>
 
@@ -52,7 +52,7 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
             }
           ></DescriptionRow>
         </div>
-      </div>
+      </article>
     </a>
   );
 };
