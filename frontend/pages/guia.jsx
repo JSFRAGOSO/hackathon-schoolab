@@ -87,7 +87,7 @@ const Questions = ({ questions }) => {
                                       disabled={coords.loading || coords.lat}
                                     >
                                       {coords.lat
-                                        ? "Localização habilitada"
+                                        ? "Encontramos sua localização!"
                                         : "Habilitar localização"}
                                     </button>
                                     <div className="ml-2 flex items-center justify-center items-center">

@@ -12,7 +12,7 @@ export const DescriptionRow = ({
     <>
       <div
         className={classNames(
-          `flex flex-1 py-2 mx-2 border-brand-400`,
+          `flex flex-1 py-2 mx-2 border-red-200`,
           className,
           { "border-b": hasBorder }
         )}
