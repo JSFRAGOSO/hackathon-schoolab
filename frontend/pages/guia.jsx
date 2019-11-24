@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Spinner from "react-spinkit";
 import Head from "next/head";
 import { Formik } from "formik";
 import Layout from "../components/MyLayout";
@@ -7,16 +7,14 @@ import ArrowRight from "../icons/arrowRight.svg";
 import { motion } from "framer-motion";
 import api from "../services/api";
 
-const MAX_SLIDES = 6;
-
 const Questions = ({ questions }) => {
   const [slide, setSlide] = useState(0);
-  const [coords, setCoords] = useState(null);
+  const [coords, setCoords] = useState({ loading: false });
 
   const onGetLocation = async () => {
-    set;
+    setCoords({ loading: true });
     const location = navigator.geolocation.getCurrentPosition(pos => {
-      setCoords(pos.coords);
+      setCoords({ ...pos.coords, loading: false });
     });
   };
 
@@ -35,7 +33,7 @@ const Questions = ({ questions }) => {
       </Head>
 
       <main className="h-full w-full p-2 flex flex-col">
-        <h1 className="font-semibold text-brand-600 text-sm">
+        <h1 className="font-semibold text-brand-600 text-base py-4 text-center">
           Responda as perguntas para descobrir a melhor escola para seu filho
         </h1>
         <Formik
@@ -56,24 +54,35 @@ const Questions = ({ questions }) => {
                     animate={{ opacity: 1, height: "auto" }}
                     transition={{ duration: 0.4 }}
                   >
-                    <div>
-                      <p>{question.description}</p>
+                    <div class="text-sm">
+                      <p className="font-semibold">{question.description}</p>
                       {(function() {
                         switch (question.order) {
-                          case 9:
+                          case 4:
                             return (
                               <>
                                 <p className="text-sm text-gray-600">
                                   Para encontrarmos escolas perto da sua casa,
                                   por favor nos forneça a sua localização.
                                 </p>
-                                <button
-                                  type="button"
-                                  className="mt-4 text-sm text-center bg-brand-600 text-white rounded-xl py-3 px-4"
-                                  onClick={onGetLocation}
-                                >
-                                  Habilitar localização
-                                </button>
+                                <div className="flex w-full">
+                                  <button
+                                    type="button"
+                                    className="mt-4 flex items-center text-sm text-center bg-brand-600 text-white rounded-xl py-3 px-4"
+                                    onClick={onGetLocation}
+                                  >
+                                    Habilitar localização
+                                  </button>
+                                  <div className="ml-2 flex items-center justify-center items-center">
+                                    {coords.loading && (
+                                      <Spinner
+                                        name="pulse"
+                                        size={16}
+                                        color="red"
+                                      />
+                                    )}
+                                  </div>
+                                </div>
                               </>
                             );
                           case 5:
@@ -106,27 +115,57 @@ const Questions = ({ questions }) => {
                               <div className="flex flex-col">
                                 <label>
                                   <input
-                                    type="checkbox"
-                                    name="morning"
-                                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                                    checked={values.morning}
+                                    type="radio"
+                                    name="accessibility"
+                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                    value="true"
+                                    checked={values.accessibility === "true"}
                                     onChange={handleChange}
                                   />
-                                  <span>Manhã</span>
+                                  <span>Sim</span>
                                 </label>
 
                                 <label>
                                   <input
-                                    type="checkbox"
-                                    name="night"
-                                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                                    checked={values.night}
+                                    type="radio"
+                                    name="accessibility"
+                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                    value="false"
+                                    checked={values.accessibility === "false"}
                                     onChange={handleChange}
                                   />
-                                  <span>Noite</span>
+                                  <span>Não</span>
                                 </label>
                               </div>
                             );
+                          case 7: {
+                            return (
+                              <div className="flex flex-col">
+                                <label>
+                                  <input
+                                    type="radio"
+                                    name="kitchen"
+                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                    value="true"
+                                    checked={values.kitchen === "true"}
+                                    onChange={handleChange}
+                                  />
+                                  <span>Sim</span>
+                                </label>
+                                <label>
+                                  <input
+                                    type="radio"
+                                    name="kitchen"
+                                    value="false"
+                                    checked={values.kitchen === "false"}
+                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                    onChange={handleChange}
+                                  />
+                                  <span>Não</span>
+                                </label>
+                              </div>
+                            );
+                          }
                           default:
                             return null;
                         }

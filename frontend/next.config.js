@@ -1,17 +1,26 @@
 const withCSS = require("@zeit/next-css");
 
-module.exports = withCSS({
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: {
-        loader: "@svgr/webpack",
-        options: {
-          icon: true
-        }
-      }
-    });
+const nextEnv = require("next-env");
+const dotenvLoad = require("dotenv-load");
 
-    return config;
-  }
-});
+dotenvLoad();
+
+const withNextEnv = nextEnv();
+
+module.exports = withNextEnv(
+  withCSS({
+    webpack(config) {
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: {
+          loader: "@svgr/webpack",
+          options: {
+            icon: true
+          }
+        }
+      });
+
+      return config;
+    }
+  })
+);
