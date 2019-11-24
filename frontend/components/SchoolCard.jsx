@@ -6,7 +6,6 @@ import Phone from "../icons/phone.svg";
 import Thumbsup from "../icons/thumbsup.svg";
 
 export const SchoolCard = ({ className, children, school, ...linkProps }) => {
-  console.log(school);
   return (
     <a
       href={`/escolas/${school._id}`}
