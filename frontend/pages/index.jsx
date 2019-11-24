@@ -35,153 +35,141 @@ const Home = () => {
   return (
     <>
       <Layout>
-        <div>
-          <h1>FlaminGO!</h1>
-          <style jsx>{`
-            h1,
-            a {
-              font-family: "Times New Roman";
-              color: white;
-              font-size: 30px;
-              text-align: center;
-              font-weight: semibold;
-              background-color: pink;
-              rounded-lg: ;
-            }
-          `}</style>
-        </div>
-      </Layout>
-
-      <Head>
-        <title>Home</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link href="/styles.css" rel="stylesheet" />
-      </Head>
-      <main className="bg-gray-200 p-2 min-h-screen">
-        <section>
-          <CallToAction href="#" className="mt-2">
-            <span>Responda as perguntas e descubra a escola mais indicada</span>
-          </CallToAction>
-        </section>
-        <section className="mt-4">
-          <SearchBar
-            placeholder="Pesquisar por escola"
-            value={search}
-            onChange={onSearch}
-          />
-          <Collapsible className="mt-2" icon={<ThumbsUp />} label="Filtros">
-            <DescriptionRow
-              icon={<Pin />}
-              className="flex-col items-start"
-              label="Distância da minha localização"
-            ></DescriptionRow>
-            <DescriptionRow
-              icon={<ThumbsUp />}
-              label={
-                <label className="flex-1" htmlFor="recommended">
-                  Recomendadas
-                </label>
-              }
-            >
-              <input
-                type="checkbox"
-                id="recommended"
-                name="recommended"
-                className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-              />
-            </DescriptionRow>
-            <DescriptionRow icon={<Tag />} label={<label>Série</label>}>
-              <select
-                name="series"
-                id="series"
-                className="form-select ml-auto border-brand-400 text-brand-600"
+        <Head>
+          <title>Home</title>
+          <link rel="icon" href="/favicon.ico" />
+          <link href="/styles.css" rel="stylesheet" />
+        </Head>
+        <main>
+          <section>
+            <img src="/img/illustration.svg" alt="" role="presentation" />
+            <h1 className="text-brand-600 px-10 font-semibold text-center  my-4">
+              Responda as perguntas e descubra a escola mais indicada
+            </h1>
+            <CallToAction href="#" className="mt-2">
+              Encontre a melhor escola para o seu filho
+            </CallToAction>
+          </section>
+          <section className="mt-4">
+            <SearchBar
+              placeholder="Pesquisar por escola"
+              value={search}
+              onChange={onSearch}
+            />
+            <Collapsible className="mt-2" icon={<ThumbsUp />} label="Filtros">
+              <DescriptionRow
+                icon={<Pin />}
+                className="flex-col items-start"
+                label="Distância da minha localização"
+              ></DescriptionRow>
+              <DescriptionRow
+                icon={<ThumbsUp />}
+                label={
+                  <label className="flex-1" htmlFor="recommended">
+                    Recomendadas
+                  </label>
+                }
               >
-                <option>Primeira Série</option>
-                <option>Segunda Série</option>
-                <option>Terceira Série</option>
-              </select>
-            </DescriptionRow>
-            <DescriptionRow
-              className="flex-col"
-              icon={<Explore />}
-              label="Tipo de escola"
-            >
-              <div className="flex px-2">
-                <label>
-                  <input
-                    type="checkbox"
-                    name="lunch"
-                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-                  />
-                  <span>Pública</span>
-                </label>
-                <label className="ml-4">
-                  <input
-                    type="checkbox"
-                    name="lunch"
-                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-                  />
-                  <span>Privada</span>
-                </label>
-                <label className="ml-4">
-                  <input
-                    type="checkbox"
-                    name="lunch"
-                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-                  />
-                  <span>Com bolsa</span>
-                </label>
-              </div>
-            </DescriptionRow>
-            <DescriptionRow
-              className="flex-col"
-              icon={<Explore />}
-              label="Turnos"
-            >
-              <div className="flex px-2">
-                <label>
-                  <input
-                    type="checkbox"
-                    name="lunch"
-                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-                  />
-                  <span>Manhã</span>
-                </label>
-                <label className="ml-4">
-                  <input
-                    type="checkbox"
-                    name="lunch"
-                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-                  />
-                  <span>Tarde</span>
-                </label>
-                <label className="ml-4">
-                  <input
-                    type="checkbox"
-                    name="lunch"
-                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-                  />
-                  <span>Noite</span>
-                </label>
-              </div>
-            </DescriptionRow>
-            <DescriptionRow
-              icon={<Food />}
-              label={<label htmlFor="lunch">Merenda</label>}
-            >
-              <input
-                type="checkbox"
-                id="lunch"
-                name="lunch"
-                className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
-              />
-            </DescriptionRow>
-          </Collapsible>
-          {schools.map(school => (
-            <SchoolCard school={school} />
-          ))}
-        </section>
-      </main>
+                <input
+                  type="checkbox"
+                  id="recommended"
+                  name="recommended"
+                  className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                />
+              </DescriptionRow>
+              <DescriptionRow icon={<Tag />} label={<label>Série</label>}>
+                <select
+                  name="series"
+                  id="series"
+                  className="form-select ml-auto border-brand-400 text-brand-600"
+                >
+                  <option>Primeira Série</option>
+                  <option>Segunda Série</option>
+                  <option>Terceira Série</option>
+                </select>
+              </DescriptionRow>
+              <DescriptionRow
+                className="flex-col"
+                icon={<Explore />}
+                label="Tipo de escola"
+              >
+                <div className="flex px-2">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="lunch"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                    />
+                    <span>Pública</span>
+                  </label>
+                  <label className="ml-4">
+                    <input
+                      type="checkbox"
+                      name="lunch"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                    />
+                    <span>Privada</span>
+                  </label>
+                  <label className="ml-4">
+                    <input
+                      type="checkbox"
+                      name="lunch"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                    />
+                    <span>Com bolsa</span>
+                  </label>
+                </div>
+              </DescriptionRow>
+              <DescriptionRow
+                className="flex-col"
+                icon={<Explore />}
+                label="Turnos"
+              >
+                <div className="flex px-2">
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="lunch"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                    />
+                    <span>Manhã</span>
+                  </label>
+                  <label className="ml-4">
+                    <input
+                      type="checkbox"
+                      name="lunch"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                    />
+                    <span>Tarde</span>
+                  </label>
+                  <label className="ml-4">
+                    <input
+                      type="checkbox"
+                      name="lunch"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                    />
+                    <span>Noite</span>
+                  </label>
+                </div>
+              </DescriptionRow>
+              <DescriptionRow
+                icon={<Food />}
+                label={<label htmlFor="lunch">Merenda</label>}
+              >
+                <input
+                  type="checkbox"
+                  id="lunch"
+                  name="lunch"
+                  className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                />
+              </DescriptionRow>
+            </Collapsible>
+            {schools.map(school => (
+              <SchoolCard school={school} />
+            ))}
+          </section>
+        </main>
+      </Layout>
     </>
   );
 };

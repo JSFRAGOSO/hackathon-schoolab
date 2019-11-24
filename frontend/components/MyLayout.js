@@ -1,16 +1,12 @@
-import Header from './Header'
+import Header from "./Header";
 
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
-}
-
-export default function Layout(props) {
+export default function Layout({ children }) {
   return (
-    <div style={layoutStyle}>
-      <Header />
-      {props.children}
+    <div className="bg-gray-200 p-2 min-h-screen">
+      <div className="max-w-2xl mx-auto">
+        <Header />
+        {children}
+      </div>
     </div>
-  )
+  );
 }

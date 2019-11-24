@@ -16,7 +16,7 @@ export const SearchBar = ({ className, ...props }) => (
     />
     <button
       type="submit"
-      className="focus:shadow-outline flex items-center px-4 py-3 rounded-r-xl"
+      className="focus:shadow-outline flex items-center px-4 py-3 rounded-r-xl text-brand-600"
     >
       <Search />
     </button>

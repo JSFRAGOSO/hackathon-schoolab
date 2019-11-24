@@ -1,15 +1,11 @@
-import Link from 'next/link'
-
-const linkStyle = {
-  marginRight: 15
-}
+import Link from "next/link";
 
 export default function Header() {
   return (
-    <div>
+    <div className="py-2">
       <Link href="/">
-        <a style={linkStyle}>Home</a>
+        <a className="uppercase text-sm text-brand-600">Logo</a>
       </Link>
     </div>
-  )
+  );
 }
