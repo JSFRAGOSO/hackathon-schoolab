@@ -6,19 +6,33 @@ module.exports = {
     async index(req,res){
         const query = req.query;
         const {latitude,longitude} = req.params;
-
+        const {serie} = req.headers;
         var school = await School.find(query);
         school.forEach(element => {
-            
+            if(element.latitude){
+                console.log(element.userDistance);
             element.userDistance = geolib.getDistance(
                 { latitude, longitude },
                 { latitude: element.latitude, longitude: element.longitude }
             );
+            
             element.save();
+            }
         });
+        console.log(serie);
         
-        school = await School.find(query).sort('userDistance')
-
+        if(serie){
+            school = await School.find({series: {$in:[serie]}}).where(query).sort('userDistance')
+        /*school = await School.find({
+            
+            $and:[
+                {series: {$in:[serie]}}
+                ,{query}
+                ]
+            }).sort('userDistance')*/
+        }else{
+            school = await School.find(query).sort('userDistance')
+        }
         return res.json(school);
        
     },
@@ -63,7 +77,8 @@ module.exports = {
             cep,
             latitude,
             longitude,
-            reciclagem
+            reciclagem,
+            serie,
         } = req.body;
 
         var school = await School.findOne({name});
@@ -104,7 +119,8 @@ module.exports = {
             cep,
             latitude,
             longitude,
-            reciclagem
+            reciclagem,
+            serie
         })
         
         return res.json(school);
