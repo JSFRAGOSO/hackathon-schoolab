@@ -102,14 +102,77 @@ const Home = () => {
               </select>
             </DescriptionRow>
             <DescriptionRow
+              className="flex-col"
               icon={<Explore />}
-              label={<label>Ordene os turnos por preferência</label>}
-            ></DescriptionRow>
-            <DescriptionRow icon={<Food />} label={<label>Merenda</label>}>
+              label="Tipo de escola"
+            >
+              <div className="flex px-2">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="lunch"
+                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                  />
+                  <span>Pública</span>
+                </label>
+                <label className="ml-4">
+                  <input
+                    type="checkbox"
+                    name="lunch"
+                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                  />
+                  <span>Privada</span>
+                </label>
+                <label className="ml-4">
+                  <input
+                    type="checkbox"
+                    name="lunch"
+                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                  />
+                  <span>Com bolsa</span>
+                </label>
+              </div>
+            </DescriptionRow>
+            <DescriptionRow
+              className="flex-col"
+              icon={<Explore />}
+              label="Turnos"
+            >
+              <div className="flex px-2">
+                <label>
+                  <input
+                    type="checkbox"
+                    name="lunch"
+                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                  />
+                  <span>Manhã</span>
+                </label>
+                <label className="ml-4">
+                  <input
+                    type="checkbox"
+                    name="lunch"
+                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                  />
+                  <span>Tarde</span>
+                </label>
+                <label className="ml-4">
+                  <input
+                    type="checkbox"
+                    name="lunch"
+                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
+                  />
+                  <span>Noite</span>
+                </label>
+              </div>
+            </DescriptionRow>
+            <DescriptionRow
+              icon={<Food />}
+              label={<label htmlFor="lunch">Merenda</label>}
+            >
               <input
                 type="checkbox"
-                id="recommended"
-                name="recommended"
+                id="lunch"
+                name="lunch"
                 className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 "
               />
             </DescriptionRow>

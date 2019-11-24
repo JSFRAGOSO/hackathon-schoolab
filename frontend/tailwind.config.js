@@ -4,6 +4,13 @@ module.exports = {
       display: ["Poppins", "sans-serif"],
       body: ["Poppins", "sans-serif"]
     },
+    customForms: theme => ({
+      default: {
+        select: {
+          iconColor: theme("colors.brand.600")
+        }
+      }
+    }),
     extend: {
       colors: {
         brand: {
