@@ -34,7 +34,7 @@ const Home = ({ schools = [] }) => {
             <h1 className="text-brand-600 px-10 font-semibold text-center  my-4">
               Responda as perguntas e descubra a escola mais indicada
             </h1>
-            <CallToAction href="#" className="mt-2">
+            <CallToAction href="/guia" className="mt-2">
               Encontre a melhor escola para o seu filho
             </CallToAction>
           </section>
@@ -153,7 +153,7 @@ const Home = ({ schools = [] }) => {
               </DescriptionRow>
             </Collapsible>
             {schools.map(school => (
-              <SchoolCard school={school} />
+              <SchoolCard school={school} className="sm:max-w-sm" />
             ))}
           </section>
         </main>

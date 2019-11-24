@@ -20,13 +20,9 @@ const School = ({ school }) => {
 };
 
 School.getInitialProps = async ctx => {
-  const response = await api.get("/schools", {
-    params: {
-      id: ctx.query.schoolId
-    }
-  });
-  console.log(response);
-  return { school: response.data };
+  const response = await api.get(`/schools/?_id=${ctx.query.schoolId}`, {});
+
+  return { school: response.data[0] };
 };
 
 export default School;
