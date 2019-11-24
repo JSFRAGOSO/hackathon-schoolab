@@ -3,7 +3,6 @@ const School = require('../models/School');
 module.exports = {
     async index(req,res){
         const school = await School.find();
-        console.log(school.likes.length)
         return res.json(school);
     },
     async store(req,res){
