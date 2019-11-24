@@ -39,7 +39,8 @@ module.exports = {
             telefone,
             cep,
             latitude,
-            longitude
+            longitude,
+            reciclagem
         } = req.body;
 
         var school = await School.findOne({name});
@@ -79,7 +80,8 @@ module.exports = {
             telefone,
             cep,
             latitude,
-            longitude
+            longitude,
+            reciclagem
         })
         
         return res.json(school);

@@ -112,7 +112,8 @@ const SchoolSchema = new Schema({
     telefone:String,
     cep:String,
     latitude:String,
-    longitude:String
+    longitude:String,
+    reciclagem
     ,likes:[{
         type:Schema.Types.ObjectId,
         ref:'User'
