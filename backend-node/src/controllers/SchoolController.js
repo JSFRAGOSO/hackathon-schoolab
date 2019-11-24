@@ -2,6 +2,7 @@ const School = require('../models/School');
 
 module.exports = {
     async index(req,res){
+        
         const school = await School.find();
         return res.json(school);
     },
