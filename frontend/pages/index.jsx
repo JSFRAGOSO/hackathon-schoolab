@@ -48,7 +48,7 @@ const Home = ({ initialSchools = [] }) => {
             initialValues={{
               search: "",
               recommended: false,
-              morning: false,
+              morning: true,
               evening: false,
               night: false
             }}
@@ -90,24 +90,11 @@ const Home = ({ initialSchools = [] }) => {
                       type="checkbox"
                       id="recommended"
                       name="recommended"
-                      value={values.recommended}
+                      checked={values.recommended}
                       onChange={handleChange}
                       className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
                     />
                   </DescriptionRow>
-                  {/* <DescriptionRow icon={<Tag />} label={<label>Série</label>}>
-                    <select
-                      value={values.years}
-                      onChange={handleChange}
-                      name="years"
-                      id="years"
-                      className="form-select ml-auto border-brand-400 text-brand-600"
-                    >
-                      <option>Primeira Série</option>
-                      <option>Segunda Série</option>
-                      <option>Terceira Série</option>
-                    </select>
-                  </DescriptionRow> */}
                   <DescriptionRow
                     className="flex-col"
                     icon={<Explore />}
@@ -119,6 +106,7 @@ const Home = ({ initialSchools = [] }) => {
                           type="checkbox"
                           name="type"
                           className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.recommended}
                           onChange={handleChange}
                         />
                         <span>Pública</span>
@@ -128,7 +116,7 @@ const Home = ({ initialSchools = [] }) => {
                           type="checkbox"
                           name="lunch"
                           className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          value={values.private}
+                          checked={values.private}
                           onChange={handleChange}
                         />
                         <span>Privada</span>
@@ -138,7 +126,7 @@ const Home = ({ initialSchools = [] }) => {
                           type="checkbox"
                           name="lunch"
                           className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          value={values.scholarship}
+                          checked={values.scholarship}
                           onChange={handleChange}
                         />
                         <span>Com bolsa</span>
@@ -156,7 +144,7 @@ const Home = ({ initialSchools = [] }) => {
                           type="checkbox"
                           name="morning"
                           className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          value={values.morning}
+                          checked={values.morning}
                           onChange={handleChange}
                         />
                         <span>Manhã</span>
@@ -166,7 +154,7 @@ const Home = ({ initialSchools = [] }) => {
                           type="checkbox"
                           name="evening"
                           className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          value={values.evening}
+                          checked={values.evening}
                           onChange={handleChange}
                         />
                         <span>Tarde</span>
@@ -176,7 +164,7 @@ const Home = ({ initialSchools = [] }) => {
                           type="checkbox"
                           name="night"
                           className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          value={values.night}
+                          checked={values.night}
                           onChange={handleChange}
                         />
                         <span>Noite</span>

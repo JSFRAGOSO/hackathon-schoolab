@@ -16,7 +16,7 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
         <img
           className="img-card rounded-xl"
           src="/img/school.jpg"
-          alt="Sunset in the mountains"
+          alt={`Foto da escola ${school.name}`}
         ></img>
         <div className="mt-4">
           <h1 className="font-bold text-xl mx-2 text-brand-600">
