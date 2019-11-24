@@ -1,6 +1,16 @@
-import React from 'react'
-import classNames from 'classnames'
+import React from "react";
+import classNames from "classnames";
 
-export const SearchBar = ({className, ...props}) => (
-    <input className={classNames("w-full rounded-lg p-3 placeholder-brand-600", className)} type="search" {...props} />
-)
+import Search from "../icons/search.svg";
+
+export const SearchBar = ({ className, ...props }) => (
+  <div
+    className={classNames(
+      "flex w-full rounded-lg py-3 px-4 text-sm placeholder-brand-600 bg-white items-center",
+      className
+    )}
+  >
+    <input className="flex-1" type="search" {...props} />
+    <Search />
+  </div>
+);
