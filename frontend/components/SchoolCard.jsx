@@ -9,7 +9,9 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
   return (
     <a
       href={`/escolas/${school._id}`}
-      className={classNames("rounded-xl mt-4 bg-white block p-2 shadow-lg")}
+      className={classNames(
+        "rounded-xl mt-4 bg-white block p-2 shadow-lg focus:shadow-outline"
+      )}
       {...linkProps}
     >
       <article className="rounded overflow-hidden">

@@ -5,7 +5,7 @@ import CaretDown from "../icons/carretDown.svg";
 import { DescriptionRow } from "./DescriptionRow";
 
 export const Collapsible = ({
-  initialState = true,
+  initialState = false,
   icon,
   label,
   className,

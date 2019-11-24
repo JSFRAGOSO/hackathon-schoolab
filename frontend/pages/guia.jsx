@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Spinner from "react-spinkit";
 import Head from "next/head";
+import Router from "next/router";
 import { Formik } from "formik";
 import Layout from "../components/MyLayout";
 import ArrowRight from "../icons/arrowRight.svg";
 import { motion } from "framer-motion";
 import api from "../services/api";
+// import series from "../_data/series.json";
 
 const Questions = ({ questions }) => {
   const [slide, setSlide] = useState(0);
@@ -14,7 +16,12 @@ const Questions = ({ questions }) => {
   const onGetLocation = async () => {
     setCoords({ loading: true });
     const location = navigator.geolocation.getCurrentPosition(pos => {
-      setCoords({ ...pos.coords, loading: false });
+      const newCoords = {
+        loading: false,
+        lat: pos.coords.latitude,
+        lng: pos.coords.longitude
+      };
+      setCoords(newCoords);
     });
   };
 
@@ -38,145 +45,175 @@ const Questions = ({ questions }) => {
         </h1>
         <Formik
           initialValues={{}}
-          onSubmit={e => {
-            console.log(e);
+          onSubmit={values => {
+            const query = {
+              ...values,
+              lat: coords.lat,
+              lng: coords.lng
+            };
+
+            Router.push({ pathname: "/busca", query });
           }}
         >
-          {({ values, handleChange, handleBlur, handleSubmit }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
-              {questions.map((question, index) => {
-                if (index > slide) return null;
-                console.log(question);
-                return (
-                  <motion.div
-                    key={question._id}
-                    className="mt-4 w-full bg-white p-4 rounded-xl opacity-0 h-0"
-                    animate={{ opacity: 1, height: "auto" }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <div class="text-sm">
-                      <p className="font-semibold">{question.description}</p>
-                      {(function() {
-                        switch (question.order) {
-                          case 4:
-                            return (
-                              <>
-                                <p className="text-sm text-gray-600">
-                                  Para encontrarmos escolas perto da sua casa,
-                                  por favor nos forneça a sua localização.
-                                </p>
-                                <div className="flex w-full">
-                                  <button
-                                    type="button"
-                                    className="mt-4 flex items-center text-sm text-center bg-brand-600 text-white rounded-xl py-3 px-4"
-                                    onClick={onGetLocation}
-                                  >
-                                    Habilitar localização
-                                  </button>
-                                  <div className="ml-2 flex items-center justify-center items-center">
-                                    {coords.loading && (
-                                      <Spinner
-                                        name="pulse"
-                                        size={16}
-                                        color="red"
-                                      />
-                                    )}
+              {questions
+                .sort((a, b) => a.order - b.order)
+                .map((question, index) => {
+                  if (index > slide) return null;
+                  return (
+                    <motion.div
+                      key={question._id}
+                      className="mt-4 w-full bg-white p-4 rounded-xl opacity-0 h-0"
+                      animate={{ opacity: 1, height: "auto" }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <div className="text-sm">
+                        <p className="font-semibold">{question.description}</p>
+                        {(function() {
+                          switch (question.order) {
+                            case 1:
+                              return (
+                                <>
+                                  <p className="text-sm text-gray-600">
+                                    Para encontrarmos escolas perto da sua casa,
+                                    por favor nos forneça a sua localização.
+                                  </p>
+                                  <div className="flex w-full">
+                                    <button
+                                      type="button"
+                                      className="mt-4 flex items-center text-sm text-center bg-brand-600 text-white rounded-xl py-3 px-4 focus:shadow-outline"
+                                      onClick={onGetLocation}
+                                      disabled={coords.loading || coords.lat}
+                                    >
+                                      {coords.lat
+                                        ? "Localização habilitada"
+                                        : "Habilitar localização"}
+                                    </button>
+                                    <div className="ml-2 flex items-center justify-center items-center">
+                                      {coords.loading && (
+                                        <Spinner
+                                          name="pulse"
+                                          size={16}
+                                          color="red"
+                                        />
+                                      )}
+                                    </div>
                                   </div>
+                                </>
+                              );
+                            // case 3:
+                            //   return (
+                            //     <select
+                            //       name="serie"
+                            //       value={values.serie}
+                            //       onChange={handleChange}
+                            //       className="w-full focus:shadow-outline form-select my-auto border-brand-400 text-brand-600 mt-4"
+                            //     >
+                            //       {series.map(s => (
+                            //         <option value={s.value}>{s.name}</option>
+                            //       ))}
+                            //     </select>
+                            //   );
+                            case 5:
+                              return (
+                                <div className="flex flex-col py-2">
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="type"
+                                      value="publica"
+                                      className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                      checked={values.type === "publica"}
+                                      onChange={handleChange}
+                                    />
+                                    <span>Pública</span>
+                                  </label>
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="type"
+                                      value="privada"
+                                      className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                      checked={values.type === "privada"}
+                                      onChange={handleChange}
+                                    />
+                                    <span>Privada</span>
+                                  </label>
                                 </div>
-                              </>
-                            );
-                          case 5:
-                            return (
-                              <div className="flex flex-col py-2">
-                                <label>
-                                  <input
-                                    type="checkbox"
-                                    name="publica"
-                                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                                    checked={values.morning}
-                                    onChange={handleChange}
-                                  />
-                                  <span>Pública</span>
-                                </label>
-                                <label>
-                                  <input
-                                    type="checkbox"
-                                    name="privada"
-                                    className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                                    checked={values.evening}
-                                    onChange={handleChange}
-                                  />
-                                  <span>Privada</span>
-                                </label>
-                              </div>
-                            );
-                          case 6:
-                            return (
-                              <div className="flex flex-col">
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="accessibility"
-                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
-                                    value="true"
-                                    checked={values.accessibility === "true"}
-                                    onChange={handleChange}
-                                  />
-                                  <span>Sim</span>
-                                </label>
+                              );
+                            case 6:
+                              return (
+                                <div className="flex flex-col">
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="dependencia_pne"
+                                      className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                      value="true"
+                                      checked={
+                                        values["dependencia_pne"] === "true"
+                                      }
+                                      onChange={handleChange}
+                                    />
+                                    <span>Sim</span>
+                                  </label>
 
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="accessibility"
-                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
-                                    value="false"
-                                    checked={values.accessibility === "false"}
-                                    onChange={handleChange}
-                                  />
-                                  <span>Não</span>
-                                </label>
-                              </div>
-                            );
-                          case 7: {
-                            return (
-                              <div className="flex flex-col">
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="kitchen"
-                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
-                                    value="true"
-                                    checked={values.kitchen === "true"}
-                                    onChange={handleChange}
-                                  />
-                                  <span>Sim</span>
-                                </label>
-                                <label>
-                                  <input
-                                    type="radio"
-                                    name="kitchen"
-                                    value="false"
-                                    checked={values.kitchen === "false"}
-                                    className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
-                                    onChange={handleChange}
-                                  />
-                                  <span>Não</span>
-                                </label>
-                              </div>
-                            );
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="dependencia_pne"
+                                      className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                      value="false"
+                                      checked={
+                                        values["dependencia_pne"] === "false"
+                                      }
+                                      onChange={handleChange}
+                                    />
+                                    <span>Não</span>
+                                  </label>
+                                </div>
+                              );
+                            case 7: {
+                              return (
+                                <div className="flex flex-col">
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="alimentacao"
+                                      value="true"
+                                      className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                      checked={values.alimentacao === "true"}
+                                      onChange={handleChange}
+                                    />
+                                    <span>Sim</span>
+                                  </label>
+                                  <label>
+                                    <input
+                                      type="radio"
+                                      name="alimentacao"
+                                      value="false"
+                                      checked={values.alimentacao === "false"}
+                                      className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                                      onChange={handleChange}
+                                    />
+                                    <span>Não</span>
+                                  </label>
+                                </div>
+                              );
+                            }
+                            default:
+                              return null;
                           }
-                          default:
-                            return null;
-                        }
-                      })()}
-                    </div>
-                  </motion.div>
-                );
-              })}
+                        })()}
+                      </div>
+                    </motion.div>
+                  );
+                })}
               <button
-                className="w-full bg-highlight-600 text-brand-600 flex py-3 px-4 rounded-full items-center mt-4"
-                type={isLastSlide ? "submit" : "button"}
+                className="w-full bg-highlight-600 text-brand-600 flex py-3 px-4 rounded-full items-center mt-4 focus:shadow-outline"
+                type={isLastSlide && values.alimentacao ? "submit" : "button"}
+                disabled={isLastSlide && !values.alimentacao}
                 onClick={onNextSlide}
               >
                 <span className="flex-1 text-sm font-semibold">

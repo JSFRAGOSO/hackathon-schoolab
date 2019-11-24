@@ -1,16 +1,18 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Head from "next/head";
 import { Formik } from "formik";
-import { SearchBar } from "../components/SearchBar";
+// import { SearchBar } from "../components/SearchBar";
 import { CallToAction } from "../components/CallToAction";
 import { SchoolCard } from "../components/SchoolCard";
 import { Collapsible } from "../components/Collapsible";
 import { DescriptionRow } from "../components/DescriptionRow";
 import Layout from "../components/MyLayout";
-import ThumbsUp from "../icons/thumbsup.svg";
+import Tag from "../icons/tag.svg";
+import Accessibility from "../icons/accessibility.svg";
 import Explore from "../icons/explore.svg";
 import Food from "../icons/food.svg";
 import api from "../services/api";
+import series from "../_data/series.json";
 
 const Home = ({ initialSchools = [] }) => {
   const [schools, setSchools] = useState(initialSchools);
@@ -19,7 +21,6 @@ const Home = ({ initialSchools = [] }) => {
     setSubmitting(true);
     async function fetchSchools() {
       const response = await api.get("/schools", { params: {} });
-      console.log(response.data);
       setSchools(response.data || []);
     }
 
@@ -40,9 +41,10 @@ const Home = ({ initialSchools = [] }) => {
             Responda as perguntas e descubra a escola mais indicada
           </h1>
           <CallToAction href="/guia" className="mt-2">
-            Encontre a melhor escola para o seu filho
+            Descubra a escola certa
           </CallToAction>
         </section>
+
         <section className="mt-4">
           <Formik
             initialValues={{
@@ -62,38 +64,26 @@ const Home = ({ initialSchools = [] }) => {
               isSubmitting
             }) => (
               <form onSubmit={handleSubmit}>
-                <SearchBar
-                  name="search"
-                  placeholder="Pesquisar por escola"
-                  value={values.search}
-                  onChange={handleChange}
-                />
-                <Collapsible
-                  className="mt-2"
-                  icon={<ThumbsUp />}
-                  label="Filtros"
-                >
-                  {/* <DescriptionRow
-                    icon={<Pin />}
-                    className="flex-col items-start"
-                    label="Distância da minha localização"
-                  ></DescriptionRow> */}
+                <Collapsible className="mt-2" label="Filtros">
                   <DescriptionRow
-                    icon={<ThumbsUp />}
+                    className="flex-col"
+                    icon={<Tag />}
                     label={
                       <label className="flex-1" htmlFor="recommended">
-                        Recomendadas
+                        Séries
                       </label>
                     }
                   >
-                    <input
-                      type="checkbox"
-                      id="recommended"
-                      name="recommended"
-                      checked={values.recommended}
+                    <select
+                      name="serie"
+                      value={values.serie}
                       onChange={handleChange}
-                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                    />
+                      className="w-full focus:shadow-outline form-select my-auto border-brand-400 text-brand-600"
+                    >
+                      {series.map(s => (
+                        <option value={s.value}>{s.name}</option>
+                      ))}
+                    </select>
                   </DescriptionRow>
                   <DescriptionRow
                     className="flex-col"
@@ -103,73 +93,39 @@ const Home = ({ initialSchools = [] }) => {
                     <div className="flex px-2">
                       <label>
                         <input
-                          type="checkbox"
+                          type="radio"
                           name="type"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          checked={values.recommended}
+                          value="publica"
+                          className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                          checked={values.type === "publica"}
                           onChange={handleChange}
                         />
                         <span>Pública</span>
                       </label>
                       <label className="ml-4">
                         <input
-                          type="checkbox"
-                          name="lunch"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          checked={values.private}
+                          type="radio"
+                          name="type"
+                          value="privada"
+                          className="ml-auto mr-2 focus:shadow-outline form-radio my-auto border-brand-400 text-brand-600"
+                          checked={values.type === "privada"}
                           onChange={handleChange}
                         />
                         <span>Privada</span>
                       </label>
-                      <label className="ml-4">
-                        <input
-                          type="checkbox"
-                          name="lunch"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          checked={values.scholarship}
-                          onChange={handleChange}
-                        />
-                        <span>Com bolsa</span>
-                      </label>
                     </div>
                   </DescriptionRow>
                   <DescriptionRow
-                    className="flex-col"
-                    icon={<Explore />}
-                    label="Turnos"
+                    icon={<Accessibility />}
+                    label="Acessibilidade"
                   >
-                    <div className="flex px-2">
-                      <label>
-                        <input
-                          type="checkbox"
-                          name="morning"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          checked={values.morning}
-                          onChange={handleChange}
-                        />
-                        <span>Manhã</span>
-                      </label>
-                      <label className="ml-4">
-                        <input
-                          type="checkbox"
-                          name="evening"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          checked={values.evening}
-                          onChange={handleChange}
-                        />
-                        <span>Tarde</span>
-                      </label>
-                      <label className="ml-4">
-                        <input
-                          type="checkbox"
-                          name="night"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
-                          checked={values.night}
-                          onChange={handleChange}
-                        />
-                        <span>Noite</span>
-                      </label>
-                    </div>
+                    <input
+                      type="checkbox"
+                      name="dependencia_pne"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                      value={values["dependencia_pne"]}
+                      onChange={handleChange}
+                    />
                   </DescriptionRow>
                   <DescriptionRow
                     icon={<Food />}
@@ -184,6 +140,14 @@ const Home = ({ initialSchools = [] }) => {
                       onChange={handleChange}
                     />
                   </DescriptionRow>
+                  <div className="m-2">
+                    <button
+                      type="submit"
+                      className="block w-full bg-highlight-600 text-brand-600 text-sm font-semibold py-3 px-4 text-center rounded-lg shadow focus:shadow-outline"
+                    >
+                      Pesquisar
+                    </button>
+                  </div>
                 </Collapsible>
               </form>
             )}
