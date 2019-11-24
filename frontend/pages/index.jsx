@@ -1,14 +1,29 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import Head from 'next/head'
 import { SearchBar } from '../components/SearchBar'
 import { CallToAction } from '../components/CallToAction'
 import { SchoolCard } from '../components/SchoolCard'
+import api from '../services/api'
 
 const Home = () => {
   const [search, setSearch] = useState();
   const onSearch = useCallback((e) => {
     setSearch(e.target.value)
   })
+
+  const [schools, setSchool] = useState([]);
+
+  useEffect(() => {
+
+
+    async function getSchools() {
+      const response = await api.get('/schools', {});
+      setSchool(response.data);
+    }
+    getSchools();
+
+    console.log('RESPONSE >>>>', setSchool);
+  }, [])
   return (
     <div>
       <Head>
@@ -21,8 +36,9 @@ const Home = () => {
         <CallToAction href="#" className="mt-2">
           <span>Responda as perguntas e descubra a escola mais indicada</span>
         </CallToAction>
-        <SchoolCard>
-        </SchoolCard>
+        { schools.map( school => (
+          <SchoolCard school={school}/>
+        ))}      
       </div>
 
     </div>
