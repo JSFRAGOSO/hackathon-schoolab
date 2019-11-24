@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react'
 import Head from 'next/head'
 import { SearchBar } from '../components/SearchBar'
 import { CallToAction } from '../components/CallToAction'
-
+import Layout from '../components/MyLayout.js'
+  
 const Home = () => {
   const [ search, setSearch ] = useState();
   const onSearch = useCallback((e) => {
@@ -10,12 +11,30 @@ const Home = () => {
   })
   return (
   <div>
-    <Head>
-      <title>Home</title>
+    <Layout>
+      <h1>FlaminGO!</h1>
+      <style jsx>{`
+        h1,
+        a {
+          font-family: 'Times New Roman';
+          color: white;
+          font-size: 30px;
+          text-align: center;
+          font-weight: semibold;
+          background-color: pink;
+          rounded-lg: 
+        }
+        `}</style>
+    
+    </Layout>
+      <h1>Home</h1>
+      
       <link rel="icon" href="/favicon.ico" />
-    </Head>
+      
+      
+
     <div className="bg-gray-200 p-2 min-h-screen">
-      <SearchBar placeholder="Pesquisar por escola" value={search} onChange={onSearch} />
+          <SearchBar placeholder="Pesquisar por escola" value={search} onChange={onSearch} />
       <CallToAction href="#" className="mt-2">
         <span>Responda as perguntas e descubra a escola mais indicada</span>
       </CallToAction>
