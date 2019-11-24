@@ -6,6 +6,10 @@ const QuestionSchema = new Schema({
         required:true
     }
     ,order:Number
+    ,type:{
+        type:String,
+        required:true
+    }
 },{
     timestamps:true   
 }
