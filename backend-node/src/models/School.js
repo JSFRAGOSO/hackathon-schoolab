@@ -119,6 +119,7 @@ const SchoolSchema = new Schema({
         type:Schema.Types.ObjectId,
         ref:'User'
     }],
+    series:[String],
 },{
     timestamps:true   
 }
