@@ -8,8 +8,8 @@ module.exports = {
         const {latitude,longitude} = req.params;
 
         var school = await School.find(query);
-
         school.forEach(element => {
+            
             element.userDistance = geolib.getDistance(
                 { latitude, longitude },
                 { latitude: element.latitude, longitude: element.longitude }
@@ -21,6 +21,14 @@ module.exports = {
 
         return res.json(school);
        
+    },
+    async show(req,res){
+        const query = req.query;
+
+        var school = await School.find(query);
+
+        return res.json(school);
+
     },
     async store(req,res){
         const {
