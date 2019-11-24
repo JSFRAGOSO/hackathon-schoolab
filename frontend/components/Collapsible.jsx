@@ -24,16 +24,22 @@ export const Collapsible = ({
     >
       <button
         className="flex flex-1 items-center relative focus-within:shadow-outline rounded-xl py-3"
+        type="button"
         onClick={onToggle}
       >
         <h1 className="flex-1 text-center text-brand-600 font-semibold ml-10">
           {label}
         </h1>
         <div className="w-10 flex justify-center items-center text-sm rounded-r-xl breakout-button">
-          {isCollapsed ? <CaretDown /> : <Close />}
+          <CaretDown
+            style={{
+              transform: `rotate(${isCollapsed ? 0 : 180}deg)`,
+              transition: "transform 350ms ease"
+            }}
+          />
         </div>
       </button>
-      {!isCollapsed && children}
+      <div className={classNames({ hidden: isCollapsed })}>{children}</div>
     </section>
   );
 };

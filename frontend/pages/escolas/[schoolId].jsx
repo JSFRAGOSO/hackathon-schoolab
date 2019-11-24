@@ -24,8 +24,6 @@ School.getInitialProps = async ctx => {
     params: { _id: ctx.query.schoolId }
   });
 
-  console.log(response);
-
   return { school: response.data[0] };
 };
 
