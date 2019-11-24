@@ -21,10 +21,10 @@ const SchoolSchema = new Schema({
         type:String,
         required:true
     },
-    district:{
-        type:String,
-        required:true
-    },
+    district:String,
+    street:String,
+    number:Number,
+    
     morning:{
         type:Boolean,
         default:false
@@ -108,7 +108,11 @@ const SchoolSchema = new Schema({
     final_semana:{
         type:Boolean,
         default:false
-    }
+    },
+    likes:[{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    }],
 },{
     timestamps:true   
 }
