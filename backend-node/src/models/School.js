@@ -37,19 +37,15 @@ const SchoolSchema = new Schema({
         type:Boolean,
         default:false
     },
-    extra_curricular:{
+    lab_informatica:{
         type:Boolean,
         default:false
     },
-    kitchen:{
+    lab_ciencia:{
         type:Boolean,
         default:false
     },
-    quadra:{
-        type:Boolean,
-        default:false
-    },
-    laboratorio:{
+    quadra_esportes:{
         type:Boolean,
         default:false
     },
@@ -57,11 +53,64 @@ const SchoolSchema = new Schema({
         type:Boolean,
         default:false
     },
-    labciencia:{
+    parque_infantil:{
         type:Boolean,
         default:false
     },
-    likes:[{
+    bercario:{
+        type:Boolean,
+        default:false
+    },
+    banheiro_pne:{
+        type:Boolean,
+        default:false
+    },
+    dependencia_pne:{
+        type:Boolean,
+        default:false
+    },
+    banheiro_chuveiro:{
+        type:Boolean,
+        default:false
+    },
+    refeitorio:{
+        type:Boolean,
+        default:false
+    },
+    auditorio:{
+        type:Boolean,
+        default:false
+    },
+    alojamento_aluno:{
+        type:Boolean,
+        default:false
+    },
+    lavanderia:{
+        type:Boolean,
+        default:false
+    },
+    internet:{
+        type:Boolean,
+        default:false
+    },
+    alimentacao:{
+        type:Boolean,
+        default:false
+    },
+    atividade_complementar:{
+        type:Boolean,
+        default:false
+    },
+    educacao_indigena:{
+        type:Boolean,
+        default:false
+    },
+    final_semana:{
+        type:Boolean,
+        default:false
+    },
+    telefone:String
+    ,likes:[{
         type:Schema.Types.ObjectId,
         ref:'User'
     }],

@@ -8,13 +8,13 @@ module.exports = {
 
     },
     async store(req,res){
-        const {description,order} = req.body;
+        const {description,order,type} = req.body;
         var question = await Question.findOne({description});
 
         if(question){
             return res.status(200).json(question);    
         }else{
-            question = await Question.create({description,order});
+            question = await Question.create({description,order,type});
             return res.status(201).json(question);    
         }
         
