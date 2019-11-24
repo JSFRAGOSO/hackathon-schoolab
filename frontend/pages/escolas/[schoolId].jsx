@@ -1,8 +1,6 @@
 import React from "react";
 import Head from "next/head";
-
 import Layout from "../../components/MyLayout";
-
 import api from "../../services/api";
 
 const School = ({ school }) => {

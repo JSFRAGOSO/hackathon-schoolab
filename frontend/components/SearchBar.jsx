@@ -10,7 +10,7 @@ export const SearchBar = ({ className, ...props }) => (
     )}
   >
     <input
-      className="focus:shadow-outline rounded-l-xl flex-1 min-w-0 px-4 py-3 placeholder-brand-600"
+      className="focus:shadow-outline rounded-l-xl flex-1 min-w-0 px-4 py-3 placeholder-gray-700"
       type="search"
       {...props}
     />

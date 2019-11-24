@@ -27,7 +27,7 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
             hasBorder={false}
             icon={<Pin />}
             label={
-              <span className="font-normal">
+              <span className="font-normal text-gray-800">
                 {school.district}, {school.city}, {school.state}
               </span>
             }
@@ -35,7 +35,7 @@ export const SchoolCard = ({ className, children, school, ...linkProps }) => {
           <DescriptionRow
             icon={<Phone />}
             label={
-              <span className="font-normal">
+              <span className="font-normal text-gray-800">
                 {school.telefone ? school.telefone : "não informado"}
               </span>
             }
