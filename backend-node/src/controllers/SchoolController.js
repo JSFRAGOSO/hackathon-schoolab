@@ -1,9 +1,24 @@
 const School = require('../models/School');
+const geolib = require('geolib');
+
 
 module.exports = {
     async index(req,res){
         const query = req.query;
-        const school = await School.find(query);
+        const {latitude,longitude} = req.params;
+
+        var school = await School.find(query);
+
+        school.forEach(element => {
+            element.userDistance = geolib.getDistance(
+                { latitude, longitude },
+                { latitude: element.latitude, longitude: element.longitude }
+            );
+            element.save();
+        });
+        
+        school = await School.find(query).sort('userDistance')
+
         return res.json(school);
        
     },
