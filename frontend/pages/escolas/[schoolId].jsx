@@ -3,12 +3,9 @@ import Head from "next/head";
 import { SchoolDetail } from "../../components/SchoolDetail";
 
 import Layout from "../../components/MyLayout";
-
 import api from "../../services/api";
 
-
 const School = ({ school }) => {
-
   return (
     <>
       <Layout>
@@ -18,12 +15,9 @@ const School = ({ school }) => {
           <link href="/styles.css" rel="stylesheet" />
         </Head>
         <main>
-          <SchoolDetail school={school}>
-          </SchoolDetail>
+          <SchoolDetail school={school}></SchoolDetail>
         </main>
-
       </Layout>
-
     </>
   );
 };

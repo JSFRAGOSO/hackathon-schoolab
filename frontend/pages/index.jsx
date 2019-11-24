@@ -7,10 +7,7 @@ import { SchoolCard } from "../components/SchoolCard";
 import { Collapsible } from "../components/Collapsible";
 import { DescriptionRow } from "../components/DescriptionRow";
 import Layout from "../components/MyLayout";
-
-import Pin from "../icons/pin.svg";
 import ThumbsUp from "../icons/thumbsup.svg";
-import Tag from "../icons/tag.svg";
 import Explore from "../icons/explore.svg";
 import Food from "../icons/food.svg";
 import api from "../services/api";
@@ -19,11 +16,11 @@ const Home = ({ initialSchools = [] }) => {
   const [schools, setSchools] = useState(initialSchools);
 
   const onSubmitForm = (values, { setSubmitting }) => {
-    console.log(values);
     setSubmitting(true);
     async function fetchSchools() {
-      const schools = await api.get("/schools", { params: {} });
-      console.log(schools);
+      const response = await api.get("/schools", { params: {} });
+      console.log(response.data);
+      setSchools(response.data || []);
     }
 
     fetchSchools();
@@ -51,7 +48,7 @@ const Home = ({ initialSchools = [] }) => {
             initialValues={{
               search: "",
               recommended: false,
-              morning: false,
+              morning: true,
               evening: false,
               night: false
             }}
@@ -93,23 +90,10 @@ const Home = ({ initialSchools = [] }) => {
                       type="checkbox"
                       id="recommended"
                       name="recommended"
-                      value={values.recommended}
+                      checked={values.recommended}
                       onChange={handleChange}
-                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
                     />
-                  </DescriptionRow>
-                  <DescriptionRow icon={<Tag />} label={<label>Série</label>}>
-                    <select
-                      value={values.years}
-                      onChange={handleChange}
-                      name="years"
-                      id="years"
-                      className="form-select ml-auto border-brand-400 text-brand-600"
-                    >
-                      <option>Primeira Série</option>
-                      <option>Segunda Série</option>
-                      <option>Terceira Série</option>
-                    </select>
                   </DescriptionRow>
                   <DescriptionRow
                     className="flex-col"
@@ -120,9 +104,9 @@ const Home = ({ initialSchools = [] }) => {
                       <label>
                         <input
                           type="checkbox"
-                          name="public"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
-                          value={values.public}
+                          name="type"
+                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.recommended}
                           onChange={handleChange}
                         />
                         <span>Pública</span>
@@ -131,8 +115,8 @@ const Home = ({ initialSchools = [] }) => {
                         <input
                           type="checkbox"
                           name="lunch"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
-                          value={values.private}
+                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.private}
                           onChange={handleChange}
                         />
                         <span>Privada</span>
@@ -141,8 +125,8 @@ const Home = ({ initialSchools = [] }) => {
                         <input
                           type="checkbox"
                           name="lunch"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
-                          value={values.scholarship}
+                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.scholarship}
                           onChange={handleChange}
                         />
                         <span>Com bolsa</span>
@@ -159,8 +143,8 @@ const Home = ({ initialSchools = [] }) => {
                         <input
                           type="checkbox"
                           name="morning"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
-                          value={values.morning}
+                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.morning}
                           onChange={handleChange}
                         />
                         <span>Manhã</span>
@@ -169,8 +153,8 @@ const Home = ({ initialSchools = [] }) => {
                         <input
                           type="checkbox"
                           name="evening"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
-                          value={values.evening}
+                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.evening}
                           onChange={handleChange}
                         />
                         <span>Tarde</span>
@@ -179,8 +163,8 @@ const Home = ({ initialSchools = [] }) => {
                         <input
                           type="checkbox"
                           name="night"
-                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
-                          value={values.night}
+                          className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
+                          checked={values.night}
                           onChange={handleChange}
                         />
                         <span>Noite</span>
@@ -189,13 +173,13 @@ const Home = ({ initialSchools = [] }) => {
                   </DescriptionRow>
                   <DescriptionRow
                     icon={<Food />}
-                    label={<label htmlFor="lunch">Merenda</label>}
+                    label={<label htmlFor="lunch">Refeitório</label>}
                   >
                     <input
                       type="checkbox"
-                      id="lunch"
-                      name="lunch"
-                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400"
+                      id="refeitorio"
+                      name="refeitorio"
+                      className="ml-auto mr-2 focus:shadow-outline form-checkbox my-auto border-brand-400 text-brand-600"
                       value={values.lunch}
                       onChange={handleChange}
                     />
