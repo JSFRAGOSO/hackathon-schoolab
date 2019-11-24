@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import Close from "../icons/close.svg";
 import CaretDown from "../icons/carretDown.svg";
-import { LabelRow } from "./LabelRow";
+import { DescriptionRow } from "./DescriptionRow";
 
 export const Collapsible = ({
-  initialState = true,
+  initialState = false,
   icon,
   label,
   className,
@@ -18,20 +18,21 @@ export const Collapsible = ({
   return (
     <section
       className={classNames(
-        "shadow bg-white rounded-xl text-brand-600 text-sm",
+        "shadow flex bg-white rounded-xl text-brand-600 text-sm flex-col",
         className
       )}
     >
-      <div className="flex items-center relative focus-within:shadow-outline">
-        <LabelRow icon={icon} label={label}>
-          <button
-            className="p-4 flex justify-center items-center text-sm rounded-r-xl breakout-button"
-            onClick={onToggle}
-          >
-            {isCollapsed ? <CaretDown /> : <Close />}
-          </button>
-        </LabelRow>
-      </div>
+      <button
+        className="flex flex-1 items-center relative focus-within:shadow-outline rounded-xl py-3"
+        onClick={onToggle}
+      >
+        <h1 className="flex-1 text-center text-brand-600 font-semibold ml-10">
+          {label}
+        </h1>
+        <div className="w-10 flex justify-center items-center text-sm rounded-r-xl breakout-button">
+          {isCollapsed ? <CaretDown /> : <Close />}
+        </div>
+      </button>
       {!isCollapsed && children}
     </section>
   );
