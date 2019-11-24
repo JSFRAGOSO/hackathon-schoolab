@@ -15,23 +15,12 @@ import Food from "../icons/food.svg";
 import api from "../services/api";
 import { Select } from "../components/Select";
 
-const Home = () => {
+const Home = ({ schools = [] }) => {
   const [search, setSearch] = useState();
   const onSearch = useCallback(e => {
     setSearch(e.target.value);
   });
 
-  const [schools, setSchool] = useState([]);
-
-  useEffect(() => {
-    async function getSchools() {
-      const response = await api.get("/schools", {});
-      setSchool(response.data);
-    }
-    getSchools();
-
-    console.log("RESPONSE >>>>", setSchool);
-  }, []);
   return (
     <>
       <Layout>
@@ -173,4 +162,11 @@ const Home = () => {
     </>
   );
 };
+
+Home.getInitialProps = async ctx => {
+  const response = await api.get("/schools", {});
+
+  return { schools: response.data || [] };
+};
+
 export default Home;
