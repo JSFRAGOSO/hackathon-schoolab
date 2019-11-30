@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Spinner from "react-spinkit";
+
 import Head from "next/head";
 import Router from "next/router";
 import { Formik } from "formik";
@@ -29,6 +29,21 @@ const Questions = ({ questions }) => {
     setSlide(slide => (slide >= questions.length - 1 ? slide : slide + 1));
   };
 
+  const onSubmit = values => {
+    const query = {
+      ...values,
+      lat: coords.lat,
+      lng: coords.lng
+    };
+
+    if (query.alimentacao === 'false') delete query.alimentacao
+    if (query.dependencia_pne === 'false') delete query.dependencia_pne
+
+    console.log(query)
+
+    Router.push({ pathname: "/busca", query });
+  }
+
   const isLastSlide = slide === questions.length - 1;
 
   return (
@@ -45,15 +60,7 @@ const Questions = ({ questions }) => {
         </h1>
         <Formik
           initialValues={{}}
-          onSubmit={values => {
-            const query = {
-              ...values,
-              lat: coords.lat,
-              lng: coords.lng
-            };
-
-            Router.push({ pathname: "/busca", query });
-          }}
+          onSubmit={onSubmit}
         >
           {({ values, handleChange, handleSubmit }) => (
             <form onSubmit={handleSubmit}>
@@ -70,7 +77,7 @@ const Questions = ({ questions }) => {
                     >
                       <div className="text-sm">
                         <p className="font-semibold">{question.description}</p>
-                        {(function() {
+                        {(function () {
                           switch (question.order) {
                             case 1:
                               return (
@@ -90,31 +97,9 @@ const Questions = ({ questions }) => {
                                         ? "Encontramos sua localização!"
                                         : "Habilitar localização"}
                                     </button>
-                                    <div className="ml-2 flex items-center justify-center items-center">
-                                      {coords.loading && (
-                                        <Spinner
-                                          name="pulse"
-                                          size={16}
-                                          color="red"
-                                        />
-                                      )}
-                                    </div>
                                   </div>
                                 </>
                               );
-                            // case 3:
-                            //   return (
-                            //     <select
-                            //       name="serie"
-                            //       value={values.serie}
-                            //       onChange={handleChange}
-                            //       className="w-full focus:shadow-outline form-select my-auto border-brand-400 text-brand-600 mt-4"
-                            //     >
-                            //       {series.map(s => (
-                            //         <option value={s.value}>{s.name}</option>
-                            //       ))}
-                            //     </select>
-                            //   );
                             case 5:
                               return (
                                 <div className="flex flex-col py-2">

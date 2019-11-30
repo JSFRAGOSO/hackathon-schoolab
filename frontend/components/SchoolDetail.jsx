@@ -7,6 +7,12 @@ import classNames from "classnames";
 import { DescriptionRow } from "../components/DescriptionRow";
 import { CallToAction } from "../components/CallToAction";
 
+const Tag = ({ children }) => (
+  <span className="bg-brand-600 text-white font-semibold uppercase tracking-wide rounded-full px-3 py-1 block text-xs m-1">
+    {children}
+  </span>
+);
+
 export const SchoolDetail = ({ className, children, school, ...linkProps }) => {
   return (
     <a
@@ -109,47 +115,15 @@ export const SchoolDetail = ({ className, children, school, ...linkProps }) => {
               <span className="font-normal text-right">Não Informado</span>
             </div>
           </DescriptionRow>
-          <DescriptionRow hasBorder={true}>
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.quadra_esportes ? "Quadras" : false}
-              </span>
-            </div>
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.lab_informatica ? "Informática" : false}
-              </span>
-            </div>
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.biblioteca ? "Biblioteca" : false}
-              </span>
-            </div>
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.lab_ciencia ? "Laboratório" : false}
-              </span>
-            </div>
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.refeitorio ? "Refeitório" : false}
-              </span>
-            </div>
-
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.auditorio ? "Auditório" : false}
-              </span>
-            </div>
-
-            <div className="flex text-brand-600 items-center py-2 text-sm font-semibold">
-              <span className="font-normal text-right">
-                {school.atividade_complementar
-                  ? "Atividade Complementar"
-                  : false}
-              </span>
-            </div>
-          </DescriptionRow>
+          <div className="flex flex-wrap py-2">
+            {school.quadra_esportes && <Tag>Quadras</Tag>}
+            {school.lab_informatica && <Tag>Informática</Tag>}
+            {school.biblioteca && <Tag>Biblioteca</Tag>}
+            {school.lab_ciencia && <Tag>Laboratório</Tag>}
+            {school.refeitorio && <Tag>Refeitório</Tag>}
+            {school.auditorio && <Tag>Auditório</Tag>}
+            {school.atividade_complementar && <Tag>Ativ. Complementar</Tag>}
+          </div>
           <CallToAction href="#" className="mt-2">
             Deseja Avaliar a escola ?
           </CallToAction>
